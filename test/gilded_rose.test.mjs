@@ -14,15 +14,24 @@ describe("Gilded Rose ", () => {
   });
 
   test(`item name is ${AGED_BRIE} with sellIn = 100 and quality = 100, returns the same items`, () => {
-    const gildedRose = new Shop([new Item(AGED_BRIE, 100, 100)]);
+    const brie = new Item(AGED_BRIE, 100, 100);
+    const gildedRose = new Shop([brie]);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).to.equal(AGED_BRIE);
+    expect(items[0]).to.deep.equal(brie);
   });
 
   test(`item name is ${AGED_BRIE} with sellIn = 0 and quality = 100, returns the same items`, () => {
-    const gildedRose = new Shop([new Item(AGED_BRIE, 0, 100)]);
+    const brie = new Item(AGED_BRIE, 0, 100);
+    const gildedRose = new Shop([brie]);
     const items = gildedRose.updateQuality();
-    expect(items[0].name).to.equal(AGED_BRIE);
+    expect(items[0]).to.deep.equal(brie);
+  });
+
+  test(`item name is ${AGED_BRIE} with sellIn = 0 and quality = 50, returns the same items`, () => {
+    const brie = new Item(AGED_BRIE, 0, 50);
+    const gildedRose = new Shop([brie]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(brie);
   });
 
   test(`item name is NOT ${AGED_BRIE} with with sellIn =  100 and quality = 100,  -1 to quality`, () => {
