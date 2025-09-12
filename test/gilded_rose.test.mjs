@@ -35,6 +35,27 @@ describe("Gilded Rose ", () => {
         const items = gildedRose.updateQuality();
         expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 50));
       });
+
+      test("quality = 25", () => {
+        const brie = new Item(AGED_BRIE, 15, 25);
+        const gildedRose = new Shop([{ ...brie }]);
+        const items = gildedRose.updateQuality();
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 26));
+      });
+
+      test("quality = 0", () => {
+        const brie = new Item(AGED_BRIE, 15, 0);
+        const gildedRose = new Shop([{ ...brie }]);
+        const items = gildedRose.updateQuality();
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 1));
+      });
+
+      test("quality = -10", () => {
+        const brie = new Item(AGED_BRIE, 15, -10);
+        const gildedRose = new Shop([{ ...brie }]);
+        const items = gildedRose.updateQuality();
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, -9));
+      });
     });
   });
 });
