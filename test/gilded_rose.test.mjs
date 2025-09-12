@@ -20,6 +20,13 @@ describe("Gilded Rose ", () => {
       const items = gildedRose.updateQuality();
       expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 99, 100));
     });
+
+    test(`sellIn = 100 and quality = 25, changes ${AGED_BRIE} sellIn -1 and quality +1`, () => {
+      const brie = new Item(AGED_BRIE, 100, 25);
+      const gildedRose = new Shop([{ ...brie }]);
+      const items = gildedRose.updateQuality();
+      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 99, 26));
+    });
   });
 
   describe(`item name is NOT ${AGED_BRIE} with with `, () => {
