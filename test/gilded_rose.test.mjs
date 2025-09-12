@@ -16,6 +16,12 @@ const FOO = "foo";
 
 describe("Gilded Rose ", () => {
   test("empty", () => {
+    const gildedRose = new Shop();
+    const items = gildedRose.updateQuality();
+    expect(items).to.deep.equal([]);
+  });
+
+  test("empty array", () => {
     const gildedRose = new Shop([]);
     const items = gildedRose.updateQuality();
     expect(items).to.deep.equal([]);
