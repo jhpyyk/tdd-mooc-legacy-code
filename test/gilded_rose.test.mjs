@@ -13,13 +13,13 @@ describe("Gilded Rose ", () => {
     expect(items[0].name).to.equal(FOO);
   });
 
-  test(`item name is ${AGED_BRIE} with quality is 100 and sellIn is 100, returns the same items`, () => {
+  test(`item name is ${AGED_BRIE} with sellIn =  100 and quality = 100, returns the same items`, () => {
     const gildedRose = new Shop([new Item(AGED_BRIE, 100, 100)]);
     const items = gildedRose.updateQuality();
     expect(items[0].name).to.equal(AGED_BRIE);
   });
 
-  test(`item name is NOT ${AGED_BRIE} with quality is 100 and sellIn is 100,  -1 to quality`, () => {
+  test(`item name is NOT ${AGED_BRIE} with with sellIn =  100 and quality = 100,  -1 to quality`, () => {
     const gildedRose = new Shop([new Item(FOO, 100, 100)]);
     const items = gildedRose.updateQuality();
     expect(items[0].name).to.equal(FOO);
