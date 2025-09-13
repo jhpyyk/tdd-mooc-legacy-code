@@ -50,7 +50,9 @@ export class Shop {
       if (this.items[i].name === "Aged Brie" && this.items[i].quality < 50) {
         this.items[i].quality = this.items[i].quality + 1;
         return this.items;
-      } else if (this.items[i].name === "Aged Brie" && this.items[i].quality >= 50) {
+      }
+
+      if (this.items[i].name === "Aged Brie" && this.items[i].quality >= 50) {
         return this.items;
       }
 
