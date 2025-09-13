@@ -28,9 +28,7 @@ export class Shop {
           this.items[i].quality = this.items[i].quality + 1;
           return this.items;
         }
-        if (this.items[i].quality >= 50) {
-          return this.items;
-        }
+        return this.items;
       }
 
       if (
