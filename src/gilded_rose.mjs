@@ -23,6 +23,13 @@ export class Shop {
         if (this.items[i].sellIn >= 0) {
           return this.items;
         }
+
+        if (this.items[i].quality < 50) {
+          this.items[i].quality = this.items[i].quality + 1;
+          return this.items;
+        } else if (this.items[i].name === "Aged Brie" && this.items[i].quality >= 50) {
+          return this.items;
+        }
       }
 
       if (
@@ -54,13 +61,6 @@ export class Shop {
       }
 
       if (this.items[i].sellIn >= 0 && this.items[0].name !== "Aged Brie") {
-        return this.items;
-      }
-
-      if (this.items[i].name === "Aged Brie" && this.items[i].quality < 50) {
-        this.items[i].quality = this.items[i].quality + 1;
-        return this.items;
-      } else if (this.items[i].name === "Aged Brie" && this.items[i].quality >= 50) {
         return this.items;
       }
 
