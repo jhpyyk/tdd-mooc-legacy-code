@@ -12,8 +12,10 @@ const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
 const addQualityToAgedBrie = (item) => {
   let newItem = { ...item };
-  if (newItem.quality < 50) {
-    newItem.quality = newItem.quality + 1;
+  newItem.quality = newItem.quality + 1;
+
+  if (newItem.quality > 50) {
+    newItem.quality = 50;
   }
   return newItem;
 };
@@ -57,6 +59,7 @@ export class Shop {
       if (this.items[i].name === SULFURAS) {
         continue;
       }
+
       if (this.items[i].name === AGED_BRIE) {
         this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
