@@ -31,12 +31,26 @@ const addQualityToBackstagePasses = (item) => {
       newItem.quality = newItem.quality + 1;
     }
   }
+
+  if (newItem.quality > 50) {
+    newItem.quality = 50;
+  }
   return newItem;
+};
+
+const filterItems = (items) => {
+  let newItems = [];
+  for (let item of items) {
+    if (item.quality <= 50) {
+      newItems.push(item);
+    }
+  }
+  return newItems;
 };
 
 export class Shop {
   constructor(items = []) {
-    this.items = items;
+    this.items = filterItems(items);
   }
 
   updateQuality() {
