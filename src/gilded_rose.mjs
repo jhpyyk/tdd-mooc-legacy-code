@@ -18,6 +18,11 @@ export class Shop {
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1;
         }
+
+        this.items[i].sellIn = this.items[i].sellIn - 1;
+        if (this.items[i].sellIn >= 0) {
+          return this.items;
+        }
       }
 
       if (
@@ -44,11 +49,11 @@ export class Shop {
         }
       }
 
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+      if (this.items[i].name != "Sulfuras, Hand of Ragnaros" && this.items[0].name !== "Aged Brie") {
         this.items[i].sellIn = this.items[i].sellIn - 1;
       }
 
-      if (this.items[i].sellIn >= 0) {
+      if (this.items[i].sellIn >= 0 && this.items[0].name !== "Aged Brie") {
         return this.items;
       }
 
