@@ -87,18 +87,12 @@ export class Shop {
         this.items[i] = degrade(this.items[i]);
       }
 
-      if (this.items[i].sellIn >= 0) {
-        continue;
+      if (this.items[i].sellIn < 0 && this.items[i].name === AGED_BRIE) {
+        this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
 
-      if (this.items[i].name === AGED_BRIE && this.items[i].quality < 50) {
-        this.items[i].quality = this.items[i].quality + 1;
-        continue;
-      }
-
-      if (this.items[i].name === BACKSTAGE_PASSES) {
+      if (this.items[i].sellIn < 0 && this.items[i].name === BACKSTAGE_PASSES) {
         this.items[i].quality = 0;
-        continue;
       }
     }
 
