@@ -55,6 +55,13 @@ describe("Gilded Rose ", () => {
     expect(items).to.deep.equal([]);
   });
 
+  test("undefined sellIn should not be included", () => {
+    const item = new Item(AGED_BRIE, undefined, 2);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items).to.deep.equal([]);
+  });
+
   test("item quality 80 not sulfuras", () => {
     const item = new Item(AGED_BRIE, 15, 80);
     const gildedRose = new Shop([item]);
@@ -79,15 +86,6 @@ describe("Gilded Rose ", () => {
       const items = gildedRose.updateQuality();
       expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
       expect(items[1]).to.deep.equal(new Item(SULFURAS, 15, 80));
-    });
-
-    test(`${AGED_BRIE} and false item`, () => {
-      const brie = new Item(AGED_BRIE, 15, 40);
-      const falseItem = new Item(AGED_BRIE, undefined, 40);
-      const gildedRose = new Shop([brie, falseItem]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
-      expect(items.length).to.equal(1);
     });
   });
 
