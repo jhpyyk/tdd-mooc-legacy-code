@@ -18,6 +18,22 @@ const addAgedBrieQuality = (item) => {
   return newItem;
 };
 
+const addBackstagePassQuality = (item) => {
+  let newItem = { ...item };
+  if (newItem.quality < 50) {
+    newItem.quality = newItem.quality + 1;
+
+    if (newItem.sellIn < 11 && newItem.quality < 50) {
+      newItem.quality = newItem.quality + 1;
+    }
+
+    if (newItem.sellIn < 6 && newItem.quality < 50) {
+      newItem.quality = newItem.quality + 1;
+    }
+  }
+  return newItem;
+};
+
 export class Shop {
   constructor(items = []) {
     this.items = items;
@@ -30,16 +46,8 @@ export class Shop {
         this.items[i] = addAgedBrieQuality(this.items[i]);
       }
 
-      if (this.items[i].quality < 50 && this.items[i].name === BACKSTAGE_PASSES) {
-        this.items[i].quality = this.items[i].quality + 1;
-
-        if (this.items[i].sellIn < 11 && this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-        }
-
-        if (this.items[i].sellIn < 6 && this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-        }
+      if (this.items[i].name === BACKSTAGE_PASSES) {
+        this.items[i] = addBackstagePassQuality(this.items[i]);
       }
 
       if (
