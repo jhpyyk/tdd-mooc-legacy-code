@@ -23,11 +23,10 @@ export class Shop {
         this.items[i].quality = this.items[i].quality - 1;
       }
 
-      if (this.items[i].quality < 50 && this.items[i].name === "Aged Brie") {
-        this.items[i].quality = this.items[i].quality + 1;
-      }
-
-      if (this.items[i].quality < 50 && this.items[i].name === "Backstage passes to a TAFKAL80ETC concert") {
+      if (
+        this.items[i].quality < 50 &&
+        (this.items[i].name === "Aged Brie" || this.items[i].name === "Backstage passes to a TAFKAL80ETC concert")
+      ) {
         this.items[i].quality = this.items[i].quality + 1;
       }
 
