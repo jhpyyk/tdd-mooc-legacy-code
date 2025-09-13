@@ -105,7 +105,7 @@ const filterItems = (items) => {
       newItems.push(item);
       continue;
     }
-    if (item.name === SULFURAS && item.quality !== 80) {
+    if (item.name === SULFURAS) {
       continue;
     }
     if (item.quality > 50 || item.quality < 0) {
