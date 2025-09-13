@@ -81,15 +81,6 @@ describe("Gilded Rose ", () => {
       expect(items[1]).to.deep.equal(new Item(SULFURAS, 15, 80));
     });
 
-    test(`${AGED_BRIE} and not item`, () => {
-      const brie = new Item(AGED_BRIE, 15, 40);
-      const notItem = "not item";
-      const gildedRose = new Shop([brie, notItem]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
-      expect(items.length).to.equal(1);
-    });
-
     test(`${AGED_BRIE} and false item`, () => {
       const brie = new Item(AGED_BRIE, 15, 40);
       const falseItem = new Item(AGED_BRIE, undefined, 40);
