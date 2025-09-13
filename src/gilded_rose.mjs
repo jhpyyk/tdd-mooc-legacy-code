@@ -10,6 +10,41 @@ const AGED_BRIE = "Aged Brie";
 const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
+export class Shop {
+  constructor(items = []) {
+    this.items = filterItems(items);
+  }
+
+  updateQuality() {
+    for (let i = 0; i < this.items.length; i++) {
+      // does not degrade and is not sold
+      if (this.items[i].name === SULFURAS) {
+        continue;
+      }
+
+      // update expirations
+      this.items[i].sellIn = this.items[i].sellIn - 1;
+
+      // not working as intended in requirements
+      if (this.items[i].name === BACKSTAGE_PASSES) {
+        this.items[i] = addQualityToBackstagePasses(this.items[i]);
+      }
+
+      if (this.items[i].quality > 0 && this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
+        this.items[i] = degrade(this.items[i]);
+      }
+
+      // not working as intended in requirements
+      if (this.items[i].name === AGED_BRIE) {
+        this.items[i] = addQualityToAgedBrie(this.items[i]);
+      }
+    }
+
+    return this.items;
+  }
+}
+
+// not working as intended in requirements
 const addQualityToAgedBrie = (item) => {
   let newItem = { ...item };
   if (item.sellIn < 0) {
@@ -24,15 +59,18 @@ const addQualityToAgedBrie = (item) => {
   return newItem;
 };
 
+// not working as intended in requirements
 const addQualityToBackstagePasses = (item) => {
   let newItem = { ...item };
   newItem.quality = newItem.quality + 1;
 
-  if (newItem.sellIn <= 10) {
+  // magic number 1 to keep it working as before
+  if (newItem.sellIn + 1 <= 10) {
     newItem.quality = newItem.quality + 1;
   }
 
-  if (newItem.sellIn <= 5) {
+  // magic number 1 to keep it working as before
+  if (newItem.sellIn + 1 <= 5) {
     newItem.quality = newItem.quality + 1;
   }
 
@@ -40,7 +78,7 @@ const addQualityToBackstagePasses = (item) => {
     newItem.quality = 50;
   }
 
-  if (newItem.sellIn < 1) {
+  if (newItem.sellIn < 0) {
     newItem.quality = 0;
   }
   return newItem;
@@ -68,33 +106,3 @@ const filterItems = (items) => {
   }
   return newItems;
 };
-
-export class Shop {
-  constructor(items = []) {
-    this.items = filterItems(items);
-  }
-
-  updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name === SULFURAS) {
-        continue;
-      }
-
-      if (this.items[i].name === BACKSTAGE_PASSES) {
-        this.items[i] = addQualityToBackstagePasses(this.items[i]);
-      }
-
-      this.items[i].sellIn = this.items[i].sellIn - 1;
-
-      if (this.items[i].quality > 0 && this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
-        this.items[i] = degrade(this.items[i]);
-      }
-
-      if (this.items[i].name === AGED_BRIE) {
-        this.items[i] = addQualityToAgedBrie(this.items[i]);
-      }
-    }
-
-    return this.items;
-  }
-}
