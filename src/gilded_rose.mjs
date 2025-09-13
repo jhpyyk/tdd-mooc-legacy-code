@@ -29,12 +29,7 @@ export class Shop {
       // update expirations
       this.items[i].sellIn = this.items[i].sellIn - 1;
 
-      // not working as intended in requirements
-      if (this.items[i].name === BACKSTAGE_PASSES) {
-        this.items[i] = addQualityToBackstagePasses(this.items[i]);
-      }
-
-      if (this.items[i].name !== BACKSTAGE_PASSES) {
+      if (this.items[i].name) {
         this.items[i] = degrade(this.items[i]);
       }
 
@@ -53,32 +48,19 @@ export class Shop {
   }
 }
 
-// not working as intended in requirements
-const addQualityToAgedBrie = (item) => {
-  let newItem = { ...item };
-  if (item.sellIn < 0) {
-    newItem.quality = newItem.quality + 2;
-  } else {
-    newItem.quality = newItem.quality + 1;
+const calculatePassQualityAdd = (pass) => {
+  if (pass.sellIn < 0) {
+    return 0;
   }
-  return newItem;
-};
-
-// not working as intended in requirements
-const addQualityToBackstagePasses = (item) => {
-  let newItem = { ...item };
-  newItem.quality = newItem.quality + 1;
-
-  if (newItem.sellIn <= 10) {
-    newItem.quality = newItem.quality + 1;
+  if (pass.sellIn <= 5) {
+    return 3;
   }
-  if (newItem.sellIn <= 5) {
-    newItem.quality = newItem.quality + 1;
+  if (pass.sellIn <= 10) {
+    return 2;
   }
-  if (newItem.sellIn < 0) {
-    newItem.quality = 0;
+  if (pass.sellIn > 10) {
+    return 1;
   }
-  return newItem;
 };
 
 const degrade = (item) => {
@@ -89,6 +71,10 @@ const degrade = (item) => {
   if (item.name === AGED_BRIE) {
     degradeValue = -1 * degradeValue;
   }
+  if (item.name === BACKSTAGE_PASSES) {
+    degradeValue = calculatePassQualityAdd(item);
+  }
+
   let newQuality = item.quality + degradeValue;
   let newItem = { ...item, quality: newQuality };
   return newItem;
