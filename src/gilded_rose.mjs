@@ -34,7 +34,7 @@ export class Shop {
         this.items[i] = addQualityToBackstagePasses(this.items[i]);
       }
 
-      if (this.items[i].quality > 0 && this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
+      if (this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
         this.items[i] = degrade(this.items[i]);
       }
 
