@@ -29,9 +29,7 @@ export class Shop {
       // update expirations
       this.items[i].sellIn = this.items[i].sellIn - 1;
 
-      if (this.items[i].name) {
-        this.items[i] = degrade(this.items[i]);
-      }
+      this.items[i] = degrade(this.items[i]);
 
       // Stryker disable next-line EqualityOperator; Does not matter if it is < or <=
       if (this.items[i].quality > 50) {
