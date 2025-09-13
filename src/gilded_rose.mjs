@@ -39,7 +39,7 @@ const addQualityToBackstagePasses = (item) => {
 const filterItems = (items) => {
   let newItems = [];
   for (let item of items) {
-    if (item.quality <= 50) {
+    if (item.quality <= 50 && item.quality >= 0) {
       newItems.push(item);
     }
   }
