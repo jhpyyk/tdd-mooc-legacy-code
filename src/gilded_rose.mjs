@@ -42,6 +42,10 @@ export class Shop {
       if (this.items[i].name === AGED_BRIE) {
         this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
+
+      if (this.items[i].quality > 50) {
+        this.items[i].quality = 50;
+      }
     }
 
     return this.items;
@@ -56,10 +60,6 @@ const addQualityToAgedBrie = (item) => {
   } else {
     newItem.quality = newItem.quality + 1;
   }
-
-  if (newItem.quality >= 50) {
-    newItem.quality = 50;
-  }
   return newItem;
 };
 
@@ -69,19 +69,14 @@ const addQualityToBackstagePasses = (item) => {
   newItem.quality = newItem.quality + 1;
 
   // magic number 1 to keep it working as before
-  if (newItem.sellIn + 1 <= 10) {
+  if (newItem.sellIn <= 10) {
     newItem.quality = newItem.quality + 1;
   }
 
   // magic number 1 to keep it working as before
-  if (newItem.sellIn + 1 <= 5) {
+  if (newItem.sellIn <= 5) {
     newItem.quality = newItem.quality + 1;
   }
-
-  if (newItem.quality > 50) {
-    newItem.quality = 50;
-  }
-
   if (newItem.sellIn < 0) {
     newItem.quality = 0;
   }
