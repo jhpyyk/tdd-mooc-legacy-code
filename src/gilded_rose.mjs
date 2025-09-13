@@ -39,6 +39,10 @@ const addQualityToBackstagePasses = (item) => {
   if (newItem.quality > 50) {
     newItem.quality = 50;
   }
+
+  if (newItem.sellIn < 1) {
+    newItem.quality = 0;
+  }
   return newItem;
 };
 
@@ -71,7 +75,6 @@ export class Shop {
   }
 
   updateQuality() {
-    // loop through all items
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].name === SULFURAS) {
         continue;
@@ -89,10 +92,6 @@ export class Shop {
 
       if (this.items[i].name === AGED_BRIE) {
         this.items[i] = addQualityToAgedBrie(this.items[i]);
-      }
-
-      if (this.items[i].sellIn < 0 && this.items[i].name === BACKSTAGE_PASSES) {
-        this.items[i].quality = 0;
       }
     }
 
