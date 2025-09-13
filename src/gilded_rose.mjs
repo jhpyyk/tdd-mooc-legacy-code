@@ -11,8 +11,12 @@ const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
 export class Shop {
-  constructor(items = []) {
-    this.items = filterItems(items);
+  constructor(items) {
+    if (items === undefined) {
+      this.items = [];
+    } else {
+      this.items = filterItems(items);
+    }
   }
 
   updateQuality() {

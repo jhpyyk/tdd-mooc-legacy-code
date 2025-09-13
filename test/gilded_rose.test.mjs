@@ -21,6 +21,7 @@ describe("Gilded Rose ", () => {
   test("empty", () => {
     const gildedRose = new Shop();
     const items = gildedRose.updateQuality();
+    expect(gildedRose.items).to.deep.equal([]);
     expect(items).to.deep.equal([]);
   });
 
