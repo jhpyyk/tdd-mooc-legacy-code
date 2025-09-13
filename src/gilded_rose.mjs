@@ -54,6 +54,9 @@ export class Shop {
   updateQuality() {
     // loop through all items
     for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].name === SULFURAS) {
+        continue;
+      }
       if (this.items[i].name === AGED_BRIE) {
         this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
@@ -62,18 +65,11 @@ export class Shop {
         this.items[i] = addQualityToBackstagePasses(this.items[i]);
       }
 
-      if (
-        this.items[i].quality > 0 &&
-        this.items[i].name != SULFURAS &&
-        this.items[i].name != AGED_BRIE &&
-        this.items[i].name != BACKSTAGE_PASSES
-      ) {
+      if (this.items[i].quality > 0 && this.items[i].name != AGED_BRIE && this.items[i].name != BACKSTAGE_PASSES) {
         this.items[i].quality = this.items[i].quality - 1;
       }
 
-      if (this.items[i].name != SULFURAS) {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
+      this.items[i].sellIn = this.items[i].sellIn - 1;
 
       if (this.items[i].sellIn >= 0) {
         continue;
@@ -90,10 +86,6 @@ export class Shop {
 
       if (this.items[i].name === BACKSTAGE_PASSES) {
         this.items[i].quality = 0;
-        continue;
-      }
-
-      if (this.items[i].name === SULFURAS) {
         continue;
       }
 
