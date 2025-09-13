@@ -100,6 +100,12 @@ const degrade = (item) => {
 const filterItems = (items) => {
   let newItems = [];
   for (let item of items) {
+    if (item.name === SULFURAS && item.quality !== 80) {
+      continue;
+    }
+    if (item.name === SULFURAS && item.quality === 80) {
+      newItems.push(item);
+    }
     if (item.quality <= 50 && item.quality >= 0) {
       newItems.push(item);
     }
