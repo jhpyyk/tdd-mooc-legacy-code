@@ -68,12 +68,9 @@ const addQualityToBackstagePasses = (item) => {
   let newItem = { ...item };
   newItem.quality = newItem.quality + 1;
 
-  // magic number 1 to keep it working as before
   if (newItem.sellIn <= 10) {
     newItem.quality = newItem.quality + 1;
   }
-
-  // magic number 1 to keep it working as before
   if (newItem.sellIn <= 5) {
     newItem.quality = newItem.quality + 1;
   }
