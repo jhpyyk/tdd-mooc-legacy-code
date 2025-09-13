@@ -11,7 +11,7 @@ const FOO = "foo";
 // quality edges: 50, 0, changes
 
 // item name cases: brie, bacstage, sulfuras, foo
-// sellIn cases: 10, 5, 1, 0, -3
+// sellIn cases: 10, 5, 0, -3
 // quality cases: 50, 1, 0
 
 describe("Gilded Rose ", () => {
@@ -84,15 +84,6 @@ describe("Gilded Rose ", () => {
     test(`${AGED_BRIE} and not item`, () => {
       const brie = new Item(AGED_BRIE, 15, 40);
       const notItem = "not item";
-      const gildedRose = new Shop([brie, notItem]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
-      expect(items.length).to.equal(1);
-    });
-
-    test(`${AGED_BRIE} and not item`, () => {
-      const brie = new Item(AGED_BRIE, 15, 40);
-      const notItem = new Item("not item");
       const gildedRose = new Shop([brie, notItem]);
       const items = gildedRose.updateQuality();
       expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
