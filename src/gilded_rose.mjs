@@ -10,17 +10,12 @@ const AGED_BRIE = "Aged Brie";
 const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
-const addQuality = (item) => {
+const addAgedBrieQuality = (item) => {
   let newItem = { ...item };
-  switch (newItem.name) {
-    case AGED_BRIE:
-      if (newItem.quality < 50) {
-        newItem.quality = newItem.quality + 1;
-        return newItem;
-      }
-    default:
-      return newItem;
+  if (newItem.quality < 50) {
+    newItem.quality = newItem.quality + 1;
   }
+  return newItem;
 };
 
 export class Shop {
@@ -31,7 +26,9 @@ export class Shop {
   updateQuality() {
     // loop through all items
     for (var i = 0; i < this.items.length; i++) {
-      this.items[i] = addQuality(this.items[i]);
+      if (this.items[i].name === AGED_BRIE) {
+        this.items[i] = addAgedBrieQuality(this.items[i]);
+      }
 
       if (this.items[i].quality < 50 && this.items[i].name === BACKSTAGE_PASSES) {
         this.items[i].quality = this.items[i].quality + 1;
