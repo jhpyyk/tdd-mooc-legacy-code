@@ -7,11 +7,11 @@ const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
 const FOO = "foo";
 
-// sellIn edges: 10, 6, 0, changes
+// sellIn edges: 10, 5, 0, changes
 // quality edges: 50, 0, changes
 
 // item name cases: brie, bacstage, sulfuras, foo
-// sellIn cases: 15, 10, 8, 6, 1, 0, -3
+// sellIn cases: 15, 10, 8, 5, 1, 0, -3
 // quality cases: (51), 50, 49, 1, 0, (-1)
 
 // quality case 51 removed after reading specs
@@ -162,33 +162,33 @@ describe("Gilded Rose ", () => {
       });
     });
 
-    describe("sellIn = 6 ", () => {
+    describe("sellIn = 5 ", () => {
       test("quality = 50", () => {
-        const brie = new Item(AGED_BRIE, 6, 50);
+        const brie = new Item(AGED_BRIE, 5, 50);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 5, 50));
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 4, 50));
       });
 
       test("quality = 49", () => {
-        const brie = new Item(AGED_BRIE, 6, 49);
+        const brie = new Item(AGED_BRIE, 5, 49);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 5, 50));
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 4, 50));
       });
 
       test("quality = 1", () => {
-        const brie = new Item(AGED_BRIE, 6, 1);
+        const brie = new Item(AGED_BRIE, 5, 1);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 5, 2));
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 4, 2));
       });
 
       test("quality = 0", () => {
-        const brie = new Item(AGED_BRIE, 6, 0);
+        const brie = new Item(AGED_BRIE, 5, 0);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 5, 1));
+        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 4, 1));
       });
     });
 
@@ -374,33 +374,33 @@ describe("Gilded Rose ", () => {
       });
     });
 
-    describe("sellIn = 6 ", () => {
+    describe("sellIn = 5 ", () => {
       test("quality = 50", () => {
-        const brie = new Item(BACKSTAGE_PASSES, 6, 50);
+        const brie = new Item(BACKSTAGE_PASSES, 5, 50);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 5, 50));
+        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 4, 50));
       });
 
       test("quality = 49", () => {
-        const brie = new Item(BACKSTAGE_PASSES, 6, 49);
+        const brie = new Item(BACKSTAGE_PASSES, 5, 49);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 5, 50));
+        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 4, 50));
       });
 
       test("quality = 1", () => {
-        const brie = new Item(BACKSTAGE_PASSES, 6, 1);
+        const brie = new Item(BACKSTAGE_PASSES, 5, 1);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 5, 3));
+        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 4, 4));
       });
 
       test("quality = 0", () => {
-        const brie = new Item(BACKSTAGE_PASSES, 6, 0);
+        const brie = new Item(BACKSTAGE_PASSES, 5, 0);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 5, 2));
+        expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 4, 3));
       });
     });
 
@@ -602,33 +602,33 @@ describe("Gilded Rose ", () => {
       });
     });
 
-    describe("sellIn = 6 ", () => {
+    describe("sellIn = 5 ", () => {
       test("quality = 50", () => {
-        const brie = new Item(FOO, 6, 50);
+        const brie = new Item(FOO, 5, 50);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(FOO, 5, 49));
+        expect(items[0]).to.deep.equal(new Item(FOO, 4, 49));
       });
 
       test("quality = 49", () => {
-        const brie = new Item(FOO, 6, 49);
+        const brie = new Item(FOO, 5, 49);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(FOO, 5, 48));
+        expect(items[0]).to.deep.equal(new Item(FOO, 4, 48));
       });
 
       test("quality = 1", () => {
-        const brie = new Item(FOO, 6, 1);
+        const brie = new Item(FOO, 5, 1);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(FOO, 5, 0));
+        expect(items[0]).to.deep.equal(new Item(FOO, 4, 0));
       });
 
       test("quality = 0", () => {
-        const brie = new Item(FOO, 6, 0);
+        const brie = new Item(FOO, 5, 0);
         const gildedRose = new Shop([brie]);
         const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(FOO, 5, 0));
+        expect(items[0]).to.deep.equal(new Item(FOO, 4, 0));
       });
     });
 
@@ -723,5 +723,3 @@ describe("Gilded Rose ", () => {
     });
   });
 });
-
-const coverage = "36-45,56-62,64-65";
