@@ -38,6 +38,11 @@ const addQualityToBackstagePasses = (item) => {
   return newItem;
 };
 
+const degrade = (item) => {
+  let newItem = { ...item, quality: item.quality - 1 };
+  return newItem;
+};
+
 const filterItems = (items) => {
   let newItems = [];
   for (let item of items) {
@@ -69,7 +74,7 @@ export class Shop {
       }
 
       if (this.items[i].quality > 0 && this.items[i].name != AGED_BRIE && this.items[i].name != BACKSTAGE_PASSES) {
-        this.items[i].quality = this.items[i].quality - 1;
+        this.items[i] = degrade(this.items[i]);
       }
 
       this.items[i].sellIn = this.items[i].sellIn - 1;
@@ -93,7 +98,7 @@ export class Shop {
       }
 
       if (this.items[i].quality > 0) {
-        this.items[i].quality = this.items[i].quality - 1;
+        this.items[i] = degrade(this.items[i]);
       }
     }
 
