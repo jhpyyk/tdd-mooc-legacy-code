@@ -762,8 +762,8 @@ describe("Gilded Rose ", () => {
   });
 
   describe(`item name = ${SULFURAS} `, () => {
-    test("Only quality 80 allowed ", () => {
-      const item = new Item(SULFURAS, 0, 0);
+    test("quality 40 is not added", () => {
+      const item = new Item(SULFURAS, 50, 40);
       const gildedRose = new Shop([item]);
       const items = gildedRose.updateQuality();
       expect(items).to.deep.equal([]);

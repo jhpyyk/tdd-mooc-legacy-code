@@ -43,6 +43,7 @@ export class Shop {
         this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
 
+      // Stryker disable next-line EqualityOperator; Does not matter if it is < or <=
       if (this.items[i].quality > 50) {
         this.items[i].quality = 50;
       }
@@ -97,18 +98,20 @@ const degrade = (item) => {
 const filterItems = (items) => {
   let newItems = [];
   for (let item of items) {
-    if (item.sellIn === undefined) {
+    if (item.sellIn === undefined || item.name === undefined) {
+      continue;
+    }
+    if (item.name === SULFURAS && item.quality === 80) {
+      newItems.push(item);
       continue;
     }
     if (item.name === SULFURAS && item.quality !== 80) {
       continue;
     }
-    if (item.name === SULFURAS && item.quality === 80) {
-      newItems.push(item);
+    if (item.quality > 50 || item.quality < 0) {
+      continue;
     }
-    if (item.quality <= 50 && item.quality >= 0) {
-      newItems.push(item);
-    }
+    newItems.push(item);
   }
   return newItems;
 };
