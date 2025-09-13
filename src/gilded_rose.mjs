@@ -56,9 +56,7 @@ const calculatePassQualityAdd = (pass) => {
   if (pass.sellIn <= 10) {
     return 2;
   }
-  if (pass.sellIn > 10) {
-    return 1;
-  }
+  return 1;
 };
 
 const degrade = (item) => {
