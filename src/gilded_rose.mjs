@@ -34,13 +34,8 @@ export class Shop {
         this.items[i] = addQualityToBackstagePasses(this.items[i]);
       }
 
-      if (this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
+      if (this.items[i].name !== BACKSTAGE_PASSES) {
         this.items[i] = degrade(this.items[i]);
-      }
-
-      // not working as intended in requirements
-      if (this.items[i].name === AGED_BRIE) {
-        this.items[i] = addQualityToAgedBrie(this.items[i]);
       }
 
       // Stryker disable next-line EqualityOperator; Does not matter if it is < or <=
@@ -90,6 +85,9 @@ const degrade = (item) => {
   let degradeValue = -1;
   if (item.sellIn < 0) {
     degradeValue = -2;
+  }
+  if (item.name === AGED_BRIE) {
+    degradeValue = -1 * degradeValue;
   }
   let newQuality = item.quality + degradeValue;
   let newItem = { ...item, quality: newQuality };
