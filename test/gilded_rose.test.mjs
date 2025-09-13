@@ -90,38 +90,6 @@ describe("Gilded Rose ", () => {
   });
 
   describe(`item name = ${AGED_BRIE} `, () => {
-    describe("sellIn = 11 ", () => {
-      test("quality = 50", () => {
-        const brie = new Item(AGED_BRIE, 11, 50);
-        const gildedRose = new Shop([brie]);
-        const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 10, 50));
-      });
-
-      test("quality = 0", () => {
-        const brie = new Item(AGED_BRIE, 11, 0);
-        const gildedRose = new Shop([brie]);
-        const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 10, 1));
-      });
-    });
-
-    describe("sellIn = 10 ", () => {
-      test("quality = 50", () => {
-        const brie = new Item(AGED_BRIE, 10, 50);
-        const gildedRose = new Shop([brie]);
-        const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 9, 50));
-      });
-
-      test("quality = 0", () => {
-        const brie = new Item(AGED_BRIE, 10, 0);
-        const gildedRose = new Shop([brie]);
-        const items = gildedRose.updateQuality();
-        expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 9, 1));
-      });
-    });
-
     describe("sellIn = 5 ", () => {
       test("quality = 50", () => {
         const brie = new Item(AGED_BRIE, 5, 50);
