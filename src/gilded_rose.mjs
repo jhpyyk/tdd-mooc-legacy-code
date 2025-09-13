@@ -100,6 +100,9 @@ const degrade = (item) => {
 const filterItems = (items) => {
   let newItems = [];
   for (let item of items) {
+    if (!(item instanceof Item)) {
+      continue;
+    }
     if (item.name === SULFURAS && item.quality !== 80) {
       continue;
     }
