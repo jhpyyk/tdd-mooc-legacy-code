@@ -39,7 +39,15 @@ const addQualityToBackstagePasses = (item) => {
 };
 
 const degrade = (item) => {
-  let newItem = { ...item, quality: item.quality - 1 };
+  let degradeValue = -1;
+  if (item.sellIn < 0) {
+    degradeValue = -2;
+  }
+  let newQuality = item.quality + degradeValue;
+  if (newQuality < 0) {
+    newQuality = 0;
+  }
+  let newItem = { ...item, quality: newQuality };
   return newItem;
 };
 
@@ -73,11 +81,11 @@ export class Shop {
         this.items[i] = addQualityToBackstagePasses(this.items[i]);
       }
 
-      if (this.items[i].quality > 0 && this.items[i].name != AGED_BRIE && this.items[i].name != BACKSTAGE_PASSES) {
+      this.items[i].sellIn = this.items[i].sellIn - 1;
+
+      if (this.items[i].quality > 0 && this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
         this.items[i] = degrade(this.items[i]);
       }
-
-      this.items[i].sellIn = this.items[i].sellIn - 1;
 
       if (this.items[i].sellIn >= 0) {
         continue;
@@ -91,10 +99,6 @@ export class Shop {
       if (this.items[i].name === BACKSTAGE_PASSES) {
         this.items[i].quality = 0;
         continue;
-      }
-
-      if (this.items[i].quality > 0 && this.items[i].name !== BACKSTAGE_PASSES && this.items[i].name !== AGED_BRIE) {
-        this.items[i] = degrade(this.items[i]);
       }
     }
 
