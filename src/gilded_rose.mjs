@@ -57,7 +57,7 @@ const addQualityToAgedBrie = (item) => {
     newItem.quality = newItem.quality + 1;
   }
 
-  if (newItem.quality > 50) {
+  if (newItem.quality >= 50) {
     newItem.quality = 50;
   }
   return newItem;
