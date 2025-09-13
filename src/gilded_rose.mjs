@@ -47,6 +47,11 @@ export class Shop {
       if (this.items[i].quality > 50) {
         this.items[i].quality = 50;
       }
+
+      // Stryker disable next-line EqualityOperator; Does not matter if it is < or <=
+      if (this.items[i].quality < 0) {
+        this.items[i].quality = 0;
+      }
     }
 
     return this.items;
@@ -87,10 +92,6 @@ const degrade = (item) => {
     degradeValue = -2;
   }
   let newQuality = item.quality + degradeValue;
-  // Stryker disable next-line EqualityOperator; Does not matter if it is < or <=
-  if (newQuality < 0) {
-    newQuality = 0;
-  }
   let newItem = { ...item, quality: newQuality };
   return newItem;
 };
