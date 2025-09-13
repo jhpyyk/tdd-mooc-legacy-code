@@ -51,7 +51,16 @@ describe("Gilded Rose ", () => {
       const gildedRose = new Shop([{ ...brie }, { ...pass }]);
       const items = gildedRose.updateQuality();
       expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
-      expect(items[1]).to.deep.equal(new Item(BACKSTAGE_PASSES, 15, 40));
+      expect(items[1]).to.deep.equal(new Item(BACKSTAGE_PASSES, 14, 41));
+    });
+
+    test(`${AGED_BRIE} and ${SULFURAS}`, () => {
+      const brie = new Item(AGED_BRIE, 15, 40);
+      const pass = new Item(SULFURAS, 15, 40);
+      const gildedRose = new Shop([{ ...brie }, { ...pass }]);
+      const items = gildedRose.updateQuality();
+      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 14, 41));
+      expect(items[1]).to.deep.equal(new Item(SULFURAS, 15, 40));
     });
   });
 
