@@ -20,16 +20,14 @@ const addQualityToAgedBrie = (item) => {
 
 const addQualityToBackstagePasses = (item) => {
   let newItem = { ...item };
-  if (newItem.quality < 50) {
+  newItem.quality = newItem.quality + 1;
+
+  if (newItem.sellIn <= 10) {
     newItem.quality = newItem.quality + 1;
+  }
 
-    if (newItem.sellIn <= 10 && newItem.quality < 50) {
-      newItem.quality = newItem.quality + 1;
-    }
-
-    if (newItem.sellIn <= 5 && newItem.quality < 50) {
-      newItem.quality = newItem.quality + 1;
-    }
+  if (newItem.sellIn <= 5) {
+    newItem.quality = newItem.quality + 1;
   }
 
   if (newItem.quality > 50) {
