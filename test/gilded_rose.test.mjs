@@ -109,7 +109,8 @@ describe(`item name = ${BACKSTAGE_PASSES} `, () => {
     [6, 0, 5, 3],
     [5, 0, 4, 3],
     [1, 0, 0, 3],
-    [0, 20, -1, 0][(0, 0, -1, 0)],
+    [0, 20, -1, 0],
+    [0, 0, -1, 0],
     [-3, 0, -4, 0],
   ])("sellIn = %i, quality = %i, expected sellIn = %i, quality = %i", ([sellIn, quality, expSellIn, expQuality]) => {
     const item = new Item(BACKSTAGE_PASSES, sellIn, quality);

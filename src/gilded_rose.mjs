@@ -49,7 +49,7 @@ export class Shop {
 
 const calculatePassQualityAdd = (pass) => {
   if (pass.sellIn < 0) {
-    return 0;
+    return -1000;
   }
   if (pass.sellIn <= 5) {
     return 3;
