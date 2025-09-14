@@ -170,5 +170,19 @@ describe(`item name = ${FOO} `, () => {
       const items = gildedRose.updateQuality();
       expect(items[0]).to.deep.equal(new Item(FOO, -3, 16, true));
     });
+
+    test(`${AGED_BRIE} degrades two times faster when not expired`, () => {
+      const item = new Item(AGED_BRIE, 10, 20, true);
+      const gildedRose = new Shop([item]);
+      const items = gildedRose.updateQuality();
+      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 9, 22, true));
+    });
+
+    test(`${AGED_BRIE} degrades two times faster when expired`, () => {
+      const item = new Item(AGED_BRIE, -2, 20, true);
+      const gildedRose = new Shop([item]);
+      const items = gildedRose.updateQuality();
+      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, -3, 24, true));
+    });
   });
 });
