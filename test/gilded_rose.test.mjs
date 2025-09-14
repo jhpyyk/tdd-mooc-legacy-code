@@ -109,7 +109,7 @@ describe(`item name = ${BACKSTAGE_PASSES} `, () => {
     [6, 0, 5, 3],
     [5, 0, 4, 3],
     [1, 0, 0, 3],
-    [0, 0, -1, 0],
+    [0, 20, -1, 0][(0, 0, -1, 0)],
     [-3, 0, -4, 0],
   ])("sellIn = %i, quality = %i, expected sellIn = %i, quality = %i", ([sellIn, quality, expSellIn, expQuality]) => {
     const item = new Item(BACKSTAGE_PASSES, sellIn, quality);
@@ -148,41 +148,56 @@ describe(`item name = ${FOO} `, () => {
     const items = gildedRose.updateQuality();
     expect(items[0]).to.deep.equal(new Item(FOO, expSellIn, expQuality));
   });
+});
 
-  describe("Conjured items ", () => {
-    test("can be created", () => {
-      const item = new Item(FOO, 10, 20, true);
+describe("Conjured items ", () => {
+  test("can be created", () => {
+    const item = new Item(FOO, 10, 20, true);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].conjured).to.equal(true);
+  });
+
+  test(`${FOO} degrades two times faster when not expired`, () => {
+    const item = new Item(FOO, 10, 20, true);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(FOO, 9, 18, true));
+  });
+
+  test(`${FOO} degrades two times faster when expired`, () => {
+    const item = new Item(FOO, -2, 20, true);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(FOO, -3, 16, true));
+  });
+
+  test(`${AGED_BRIE} degrades two times faster when not expired`, () => {
+    const item = new Item(AGED_BRIE, 10, 20, true);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 9, 22, true));
+  });
+
+  test(`${AGED_BRIE} degrades two times faster when expired`, () => {
+    const item = new Item(AGED_BRIE, -2, 20, true);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(AGED_BRIE, -3, 24, true));
+  });
+
+  describe(`${BACKSTAGE_PASSES} degrades twice as fast`, () => {
+    test.for([
+      [15, 20, 14, 22],
+      [10, 20, 9, 24],
+      [5, 20, 4, 26],
+      [0, 20, -1, 0],
+      [-3, 20, -4, 0],
+    ])("sellIn = %i, quality = %i, expected sellIn = %i, quality = %i", ([sellIn, quality, expSellIn, expQuality]) => {
+      const item = new Item(BACKSTAGE_PASSES, sellIn, quality, true);
       const gildedRose = new Shop([item]);
       const items = gildedRose.updateQuality();
-      expect(items[0].conjured).to.equal(true);
-    });
-
-    test(`${FOO} degrades two times faster when not expired`, () => {
-      const item = new Item(FOO, 10, 20, true);
-      const gildedRose = new Shop([item]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, 9, 18, true));
-    });
-
-    test(`${FOO} degrades two times faster when expired`, () => {
-      const item = new Item(FOO, -2, 20, true);
-      const gildedRose = new Shop([item]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, -3, 16, true));
-    });
-
-    test(`${AGED_BRIE} degrades two times faster when not expired`, () => {
-      const item = new Item(AGED_BRIE, 10, 20, true);
-      const gildedRose = new Shop([item]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, 9, 22, true));
-    });
-
-    test(`${AGED_BRIE} degrades two times faster when expired`, () => {
-      const item = new Item(AGED_BRIE, -2, 20, true);
-      const gildedRose = new Shop([item]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(AGED_BRIE, -3, 24, true));
+      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, expSellIn, expQuality, true));
     });
   });
 });
