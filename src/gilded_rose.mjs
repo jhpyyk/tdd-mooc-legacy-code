@@ -71,6 +71,9 @@ const degrade = (item) => {
   if (item.name === BACKSTAGE_PASSES) {
     degradeValue = calculatePassQualityAdd(item);
   }
+  if (item.conjured === true) {
+    degradeValue = degradeValue * 2;
+  }
 
   let newQuality = item.quality + degradeValue;
   let newItem = { ...item, quality: newQuality };
