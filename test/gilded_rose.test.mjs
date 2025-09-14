@@ -104,49 +104,19 @@ describe("Gilded Rose ", () => {
 });
 
 describe(`item name = ${BACKSTAGE_PASSES} `, () => {
-  describe("sellIn = 11 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 11, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 10, 2));
-    });
-  });
-
-  describe("sellIn = 10 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 10, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 9, 2));
-    });
-  });
-
-  describe("sellIn = 6 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 6, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 5, 3));
-    });
-  });
-
-  describe("sellIn = 5 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 5, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 4, 3));
-    });
-  });
-
-  describe("sellIn = 1 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 1, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, 0, 3));
-    });
+  test.for([
+    [11, 0, 10, 2],
+    [10, 0, 9, 2],
+    [6, 0, 5, 3],
+    [5, 0, 4, 3],
+    [1, 0, 0, 3],
+    [0, 0, -1, 0],
+    [-3, 0, -4, 0],
+  ])("sellIn = %i, quality = %i, expected sellIn = %i, quality = %i", ([sellIn, quality, expSellIn, expQuality]) => {
+    const item = new Item(BACKSTAGE_PASSES, sellIn, quality);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, expSellIn, expQuality));
   });
 
   describe("sellIn = 0 ", () => {
@@ -160,10 +130,10 @@ describe(`item name = ${BACKSTAGE_PASSES} `, () => {
 
   describe("sellIn = -3 ", () => {
     test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 0, 0);
+      const brie = new Item(BACKSTAGE_PASSES, -3, 0);
       const gildedRose = new Shop([brie]);
       const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, -1, 0));
+      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, -4, 0));
     });
   });
 });
