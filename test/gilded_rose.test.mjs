@@ -155,51 +155,16 @@ describe(`item name = ${SULFURAS} `, () => {
 });
 
 describe(`item name = ${FOO} `, () => {
-  describe("sellIn = 1 ", () => {
-    test("quality = 50", () => {
-      const brie = new Item(FOO, 1, 50);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, 0, 49));
-    });
-
-    test("quality = 0", () => {
-      const brie = new Item(FOO, 1, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, 0, 0));
-    });
-  });
-
-  describe("sellIn = 0 ", () => {
-    test("quality = 50", () => {
-      const brie = new Item(FOO, 0, 50);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, -1, 48));
-    });
-
-    test("quality = 0", () => {
-      const brie = new Item(FOO, 0, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, -1, 0));
-    });
-  });
-
-  describe("sellIn = -3 ", () => {
-    test("quality = 50", () => {
-      const brie = new Item(FOO, 0, 50);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, -1, 48));
-    });
-
-    test("quality = 0", () => {
-      const brie = new Item(FOO, 0, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(FOO, -1, 0));
-    });
+  test.for([
+    [1, 50, 0, 49],
+    [1, 0, 0, 0],
+    [0, 50, -1, 48],
+    [0, 0, -1, 0],
+    [-3, 50, -4, 48],
+  ])("sellIn = %i, quality = %i, expected sellIn = %i, quality = %i", ([sellIn, quality, expSellIn, expQuality]) => {
+    const item = new Item(FOO, sellIn, quality);
+    const gildedRose = new Shop([item]);
+    const items = gildedRose.updateQuality();
+    expect(items[0]).to.deep.equal(new Item(FOO, expSellIn, expQuality));
   });
 });
