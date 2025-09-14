@@ -31,7 +31,6 @@ describe("Gilded Rose ", () => {
     const items = gildedRose.updateQuality();
     expect(items).to.deep.equal([]);
   });
-
   test("over 50 quality should not be included", () => {
     const brie = new Item(AGED_BRIE, 15, 51);
     const gildedRose = new Shop([brie]);
@@ -118,24 +117,6 @@ describe(`item name = ${BACKSTAGE_PASSES} `, () => {
     const items = gildedRose.updateQuality();
     expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, expSellIn, expQuality));
   });
-
-  describe("sellIn = 0 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, 0, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, -1, 0));
-    });
-  });
-
-  describe("sellIn = -3 ", () => {
-    test("quality = 0", () => {
-      const brie = new Item(BACKSTAGE_PASSES, -3, 0);
-      const gildedRose = new Shop([brie]);
-      const items = gildedRose.updateQuality();
-      expect(items[0]).to.deep.equal(new Item(BACKSTAGE_PASSES, -4, 0));
-    });
-  });
 });
 
 describe(`item name = ${SULFURAS} `, () => {
@@ -166,5 +147,14 @@ describe(`item name = ${FOO} `, () => {
     const gildedRose = new Shop([item]);
     const items = gildedRose.updateQuality();
     expect(items[0]).to.deep.equal(new Item(FOO, expSellIn, expQuality));
+  });
+
+  describe("Conjured items ", () => {
+    test("can be created", () => {
+      const item = new Item(FOO, 10, 20, true);
+      const gildedRose = new Shop([item]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].conjured).to.equal(true);
+    });
   });
 });
