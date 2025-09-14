@@ -156,5 +156,12 @@ describe(`item name = ${FOO} `, () => {
       const items = gildedRose.updateQuality();
       expect(items[0].conjured).to.equal(true);
     });
+
+    test(`${FOO} degrades two times faster when not expired`, () => {
+      const item = new Item(FOO, 10, 20, true);
+      const gildedRose = new Shop([item]);
+      const items = gildedRose.updateQuality();
+      expect(items[0]).to.deep.equal(new Item(FOO, 9, 18, true));
+    });
   });
 });
